@@ -2,6 +2,7 @@ package com.dsosedov.redis.controllers;
 
 import com.dsosedov.redis.entities.Foo;
 import com.dsosedov.redis.models.FooRequest;
+import com.dsosedov.redis.models.FooResponse;
 import com.dsosedov.redis.repositories.FooRepository;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -26,11 +27,14 @@ public class FooController {
     }
 
     @GetMapping
-    public String get() {
+    public ResponseEntity<FooResponse> get() {
         if (fooRepository.findAll().iterator().hasNext()) {
-            return fooRepository.findAll().iterator().next().getBar();
+            Foo foo = fooRepository.findAll().iterator().next();
+            FooResponse fooResponse = new FooResponse();
+            fooResponse.setBar(foo.getBar());
+            return new ResponseEntity(fooResponse, HttpStatus.OK);
         }
-        return "nothing found";
+        return new ResponseEntity(HttpStatus.NOT_FOUND);
     }
 
 }

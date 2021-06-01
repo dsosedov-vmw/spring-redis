@@ -32,12 +32,7 @@ class FooControllerTests {
 
     @BeforeEach
     void setUp() {
-        when(fooRepository.findAll()).thenReturn(new Iterable<Foo>() {
-            @Override
-            public Iterator<Foo> iterator() {
-                return iterator;
-            }
-        });
+        when(fooRepository.findAll()).thenReturn(() -> iterator);
     }
 
     @Test
@@ -65,8 +60,8 @@ class FooControllerTests {
         };
         mockMvc.perform(
                 get("/api/v1/foo"))
-                .andExpect(status().isOk())
-                .andExpect(content().string("nothing found"));
+                .andExpect(status().isNotFound())
+                .andExpect(content().string(""));
     }
 
     @Test
@@ -87,7 +82,7 @@ class FooControllerTests {
         mockMvc.perform(
                 get("/api/v1/foo"))
                 .andExpect(status().isOk())
-                .andExpect(content().string("baz"));
+                .andExpect(content().json("{\"bar\":\"baz\"}"));
     }
 
 }
