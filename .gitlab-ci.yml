@@ -1,4 +1,4 @@
-image: docker:19.03.14
+image: harbor-repo.vmware.com/cloudlens/docker
 
 variables:
   # When using dind service we need to instruct docker, to talk with the
@@ -19,10 +19,10 @@ variables:
   DOCKER_TLS_CERTDIR: ""
 
 services:
-  - docker:19.03.14-dind
+- harbor-repo.vmware.com/cloudlens/docker:dind
 
 before_script:
-  - docker info
+- docker info
 
 build:
   stage: build
