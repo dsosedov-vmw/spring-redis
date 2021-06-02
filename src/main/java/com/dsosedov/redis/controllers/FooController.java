@@ -3,6 +3,7 @@ package com.dsosedov.redis.controllers;
 import com.dsosedov.redis.entities.Foo;
 import com.dsosedov.redis.models.FooRequest;
 import com.dsosedov.redis.models.FooResponse;
+import com.dsosedov.redis.models.FooStatus;
 import com.dsosedov.redis.repositories.FooRepository;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -28,13 +29,14 @@ public class FooController {
 
     @GetMapping
     public ResponseEntity<FooResponse> get() {
+        FooResponse fooResponse = new FooResponse();
+        fooResponse.setStatus(FooStatus.READY);
         if (fooRepository.findAll().iterator().hasNext()) {
             Foo foo = fooRepository.findAll().iterator().next();
-            FooResponse fooResponse = new FooResponse();
+            fooResponse.setStatus(FooStatus.IN_PROGRESS);
             fooResponse.setBar(foo.getBar());
-            return new ResponseEntity(fooResponse, HttpStatus.OK);
         }
-        return new ResponseEntity(HttpStatus.NOT_FOUND);
+        return new ResponseEntity(fooResponse, HttpStatus.OK);
     }
 
 }

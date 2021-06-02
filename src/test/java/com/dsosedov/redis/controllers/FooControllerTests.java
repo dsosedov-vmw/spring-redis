@@ -46,7 +46,7 @@ class FooControllerTests {
     }
 
     @Test
-    void getShouldReturnNothing() throws Exception {
+    void getShouldReturnReady() throws Exception {
         iterator = new Iterator<>() {
             @Override
             public boolean hasNext() {
@@ -60,8 +60,8 @@ class FooControllerTests {
         };
         mockMvc.perform(
                 get("/api/v1/foo"))
-                .andExpect(status().isNotFound())
-                .andExpect(content().string(""));
+                .andExpect(status().isOk())
+                .andExpect(content().json("{\"status\":\"READY\"}"));
     }
 
     @Test
@@ -82,7 +82,7 @@ class FooControllerTests {
         mockMvc.perform(
                 get("/api/v1/foo"))
                 .andExpect(status().isOk())
-                .andExpect(content().json("{\"bar\":\"baz\"}"));
+                .andExpect(content().json("{\"status\":\"IN_PROGRESS\",\"bar\":\"baz\"}"));
     }
 
 }
