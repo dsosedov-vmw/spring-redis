@@ -8,4 +8,4 @@ FROM ${DOCKER_REPO}/appops_release/alpine
 RUN apk add openjdk11-jre
 WORKDIR /app
 COPY --from=0 /repo/build/libs/redis-0.0.1-SNAPSHOT.jar ./app.jar
-ENTRYPOINT [ "java", "-jar", "app.jar" ]
+ENTRYPOINT [ "java", "-jar", "app.jar", "--spring.profiles.active=prod" ]
