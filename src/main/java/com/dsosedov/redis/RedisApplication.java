@@ -17,7 +17,8 @@ public class RedisApplication {
 
     public static void main(String[] args) throws TimeoutException, IOException, InterruptedException {
         ApplicationContext context = SpringApplication.run(RedisApplication.class, args);
-        StreamingConnection sc = (StreamingConnection)context.getBean("getNatsConnection");
+
+        StreamingConnection sc = (StreamingConnection) context.getBean("getNatsConnection");
 
         final CountDownLatch latch = new CountDownLatch(1);
 
@@ -26,7 +27,7 @@ public class RedisApplication {
                 com.dsosedov.natsproducer.messages.Message.Builder message = com.dsosedov.natsproducer.messages.Message.newBuilder();
                 try {
                     message.mergeFrom(m.getData());
-                    log.debug("Received a message: %s\n", new String(message.getText()));
+                    log.debug("Received a message: " + message.getText());
                 } catch (InvalidProtocolBufferException e) {
                     e.printStackTrace();
                 }

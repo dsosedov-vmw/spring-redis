@@ -1,2 +1,0 @@
-nats:
-  url: nats://nats-streaming:4222
