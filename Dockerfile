@@ -2,7 +2,8 @@ ARG DOCKER_REPO
 FROM ${DOCKER_REPO}/dockerhub-proxy-cache/adoptopenjdk/openjdk11
 WORKDIR /repo
 COPY . .
-RUN ./gradlew test bootJar -i
+RUN SPRING_PROFILES_ACTIVE=test ./gradlew test
+RUN ./gradlew bootJar -i
 
 FROM ${DOCKER_REPO}/appops_release/alpine
 RUN apk add openjdk11-jre
