@@ -27,10 +27,8 @@ stages:
 
 test:
   stage: test
-  services:
-  - harbor-repo.vmware.com/dsosedov_samples/nats-streaming:alpine
   script:
-  - SPRING_PROFILES_ACTIVE=test ./gradlew test
+  - ./gradlew test
 
 build:
   stage: build

@@ -2,6 +2,7 @@ package com.dsosedov.redis.controllers;
 
 import com.dsosedov.redis.entities.Foo;
 import com.dsosedov.redis.repositories.FooRepository;
+import io.nats.streaming.StreamingConnection;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -28,6 +29,9 @@ class FooControllerTests {
 
     @MockBean
     private FooRepository fooRepository;
+
+    @MockBean
+    private StreamingConnection streamingConnection;
 
     private Iterator<Foo> iterator;
 
