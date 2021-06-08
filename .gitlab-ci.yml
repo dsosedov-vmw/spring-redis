@@ -30,7 +30,6 @@ stages:
 
 test:
   stage: test
-  image: ${DOCKER_REPO}/dockerhub-proxy-cache/adoptopenjdk/openjdk11
   script: SPRING_PROFILES_ACTIVE=test ./gradlew test
 
 build:
