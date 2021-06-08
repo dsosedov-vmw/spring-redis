@@ -34,4 +34,4 @@ test:
 
 build:
   stage: build
-  script: docker build --link nats-streaming --build-arg DOCKER_REPO=$DOCKER_REPO .
+  script: docker build --build-arg DOCKER_REPO=$DOCKER_REPO .
