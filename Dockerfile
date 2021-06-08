@@ -2,7 +2,6 @@ ARG DOCKER_REPO
 FROM ${DOCKER_REPO}/dockerhub-proxy-cache/adoptopenjdk/openjdk11
 WORKDIR /repo
 COPY . .
-RUN SPRING_PROFILES_ACTIVE=test ./gradlew test
 RUN ./gradlew bootJar -i
 
 FROM ${DOCKER_REPO}/appops_release/alpine

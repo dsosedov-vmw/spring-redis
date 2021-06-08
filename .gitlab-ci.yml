@@ -24,6 +24,11 @@ services:
 before_script:
 - docker run -d --rm -it --name nats-streaming -p 4222:4222 -p 8222:8222 harbor-repo.vmware.com/dsosedov_samples/nats-streaming:alpine
 
+test:
+  stage: test
+  image: ${DOCKER_REPO}/dockerhub-proxy-cache/adoptopenjdk/openjdk11
+  script: SPRING_PROFILES_ACTIVE=test ./gradlew test
+
 build:
   stage: build
   script: docker build --link nats-streaming --build-arg DOCKER_REPO=$DOCKER_REPO .
