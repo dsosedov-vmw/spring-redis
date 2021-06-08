@@ -1,5 +1,6 @@
 package com.dsosedov.redis;
 
+import com.google.protobuf.InvalidProtocolBufferException;
 import io.nats.streaming.*;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.boot.SpringApplication;
@@ -22,7 +23,13 @@ public class RedisApplication {
 
         Subscription sub = sc.subscribe("dataIn", new MessageHandler() {
             public void onMessage(Message m) {
-                log.debug("Received a message: %s\n", new String(m.getData()));
+                com.dsosedov.natsproducer.messages.Message.Builder message = com.dsosedov.natsproducer.messages.Message.newBuilder();
+                try {
+                    message.mergeFrom(m.getData());
+                    log.debug("Received a message: %s\n", new String(message.getText()));
+                } catch (InvalidProtocolBufferException e) {
+                    e.printStackTrace();
+                }
                 //latch.countDown();
             }
         }, new SubscriptionOptions.Builder().deliverAllAvailable().build());
