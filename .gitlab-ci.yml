@@ -1,4 +1,4 @@
-image: harbor-repo.vmware.com/cloudlens/docker
+image: harbor-repo.vmware.com/dsosedov_samples/docker:openjdk11
 
 variables:
   # When using dind service we need to instruct docker, to talk with the
@@ -30,7 +30,8 @@ stages:
 
 test:
   stage: test
-  script: SPRING_PROFILES_ACTIVE=test ./gradlew test
+  script:
+  - SPRING_PROFILES_ACTIVE=test ./gradlew test
 
 build:
   stage: build
