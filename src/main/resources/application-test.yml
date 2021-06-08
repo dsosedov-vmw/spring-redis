@@ -1,3 +1,2 @@
 nats:
   url: nats://nats-streaming:4222
-  clusterId: nats-streaming
