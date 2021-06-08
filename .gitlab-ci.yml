@@ -21,6 +21,9 @@ variables:
 services:
 - harbor-repo.vmware.com/cloudlens/docker:dind
 
+before_script:
+- docker run -d --rm -it --name nats -p 4222:4222 -p 8222:8222 harbor-repo.vmware.com/dsosedov_samples/nats-streaming:alpine
+
 build:
   stage: build
   script: docker build --build-arg DOCKER_REPO=$DOCKER_REPO .
